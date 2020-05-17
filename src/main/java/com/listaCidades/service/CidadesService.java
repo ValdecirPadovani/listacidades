@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,9 +55,8 @@ public class CidadesService {
 					scanner.nextLine();
 				}
 			}
+			scanner.close();
 		} catch (IOException e) {
-			//ToDO: Implementar validação das informações 
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -84,8 +84,6 @@ public class CidadesService {
 	}
 
 	public List<Cidades> findCapitais() {
-		// TODO Auto-generated method stub
-		
 		return repositorio.findByCapitalMeu(Sort.by(Sort.Direction.DESC, "nome"));
 	}
 	
@@ -150,8 +148,14 @@ public class CidadesService {
 	 * @return Cria um novo registro de cidade
 	 */
 	public Cidades setCidades(Cidades cidade) {
+		Cidades newCidade = new Cidades();
 		cidade.setId(null);
-		return repositorio.save(cidade);
+		try {
+			newCidade = repositorio.save(cidade);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityViolationException("Código de IBGE já cadastrado", e.getRootCause());
+		}
+		return newCidade;
 	}
 	
 	/**

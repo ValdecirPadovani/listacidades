@@ -2,6 +2,7 @@ package com.listaCidades.dominio;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,6 +21,7 @@ public class Cidades implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
+	@Column(unique = true)
 	private String codigoIbge;
 	
 	@Enumerated(EnumType.STRING)
@@ -169,7 +171,5 @@ public class Cidades implements Serializable{
 			return false;
 		return true;
 	}
-
-	
 	
 }
