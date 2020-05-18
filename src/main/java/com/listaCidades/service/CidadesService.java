@@ -153,7 +153,7 @@ public class CidadesService {
 		try {
 			newCidade = repositorio.save(cidade);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityViolationException("Código de IBGE já cadastrado", e.getRootCause());
+			throw new DataIntegrityViolationException("Código de IBGE já cadastrado.", e.getRootCause());
 		}
 		return newCidade;
 	}
