@@ -15,11 +15,11 @@ import com.listaCidades.dominio.enums.UnidadeFederacao;
 public interface CidadesRepositorio extends JpaRepository<Cidades, Integer>{
 
 	@Transactional
-	@Query("SELECT c FROM Cidades c WHERE c.capital = 'SIM' ")
-	List<Cidades> findByCapitalMeu(Sort sort);
+	@Query("SELECT c FROM Cidades c WHERE c.capital = 'true' ")
+	List<Cidades> findByCapitais(Sort sort);
 	
 	@Transactional
-	@Query(value = "SELECT uf, count(*) from cidades group by uf having Count(*)>1 ", nativeQuery = true )
+	@Query(value = "SELECT uf, count(*) from cidades group by uf having Count(*)>1 ",nativeQuery = true )
 	List<String> findQtyUF();
 	
 	Cidades findByCodigoIbge(String codigoIbge);

@@ -84,7 +84,7 @@ public class CidadesService {
 	}
 
 	public List<Cidades> findCapitais() {
-		return repositorio.findByCapitalMeu(Sort.by(Sort.Direction.DESC, "nome"));
+		return repositorio.findByCapitais(Sort.by(Sort.Direction.DESC, "nome"));
 	}
 	
 	/**
